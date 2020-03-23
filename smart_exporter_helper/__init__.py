@@ -141,7 +141,7 @@ def handle_client(sock, additional_smartctl_args):
         for port, device in iter_drives():
             info = read_drive_info("/dev/"+device,
                     additional_smartctl_args)
-            info["port"] = port
+            info["drive"] = device
             drives.append(info)
 
         data = repr(drives).encode("utf-8")

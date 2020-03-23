@@ -58,7 +58,7 @@ class SMARTCollector(object):
         self.devicedb = devicedb
         self.attrmap = attrmap
         self.labels = [
-            "port",
+            "drive",
             "model",
             "family",
             "serial",
@@ -117,14 +117,14 @@ class SMARTCollector(object):
         error_metrics = GaugeMetricFamily(
             "smart_access_error",
             "flag indicating that there is a problem accessing the device",
-            labels=["port"],
+            labels=["drive"],
         )
 
         warning_metrics = GaugeMetricFamily(
             "smart_metric_error",
             "flag indicating that there is a problem converting metrics "
             "from the device",
-            labels=["port"],
+            labels=["drive"],
         )
 
         attr_metrics = {}
@@ -157,11 +157,11 @@ class SMARTCollector(object):
                 return metric
 
         for devinfo in data:
-            port = devinfo["port"]
+            drive = devinfo["drive"]
 
             if devinfo["error"]:
                 error_metrics.add_metric(
-                    [port],
+                    [drive],
                     1.
                 )
                 continue
@@ -169,7 +169,7 @@ class SMARTCollector(object):
             has_warnings = False
 
             error_metrics.add_metric(
-                [port],
+                [drive],
                 0.
             )
 
@@ -232,13 +232,13 @@ class SMARTCollector(object):
                 )
 
                 metric.add_metric(
-                    [port, device, family, serial],
+                    [drive, device, family, serial],
                     float(attrinfo[type_])
                 )
 
             if has_warnings:
                 warning_metrics.add_metric(
-                    [port],
+                    [drive],
                     int(has_warnings)
                 )
 
