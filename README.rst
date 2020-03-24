@@ -48,19 +48,19 @@ The helper is less than 300 lines of nearly dependency-free (the exception are t
 Installation
 ============
 
-Install via PyPI:
-
 .. code-block:: sh
 
-   pip3 install prometheus_smart_exporter
+   git clone https://github.com/RaptahJezus/prometheus_smart_exporter.git
+   cd prometheus_smart_exporter
+   sudo pip3 install .
+   sudo make install
 
-Installation via PyPI does *not* install any system-wide configuration. You need to do that yourself.
-
-
-Load the S.M.A.R.T. from `check_smartdb.json`::
-
-  $ sudo install -d -v /etc/prometheus_smart_exporter/
-  $ sudo curl -o /etc/prometheus_smart_exporter/devices.json https://raw.githubusercontent.com/thomas-krenn/check_smart_attributes/master/check_smartdb.json
+This will do the following
+- Install the prometheus_smart_exporter python package and dependencies
+- Copy devices.json and attrmap.json to /etc/prometheus_smart_exporter
+- Copy service and socket files to /etc/systemd/system/
+- Enable services and socket
+- Start services
 
 
 Fixing 'device XXXX is missing in devicedb':
