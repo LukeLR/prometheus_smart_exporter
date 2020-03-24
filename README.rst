@@ -56,11 +56,12 @@ Installation
    sudo make install
 
 This will do the following
-- Install the prometheus_smart_exporter python package and dependencies
-- Copy devices.json and attrmap.json to /etc/prometheus_smart_exporter
-- Copy service and socket files to /etc/systemd/system/
-- Enable services and socket
-- Start services
+
+* Install the prometheus_smart_exporter python package and dependencies
+* Copy devices.json and attrmap.json to /etc/prometheus_smart_exporter
+* Copy service and socket files to /etc/systemd/system/
+* Enable services and socket
+* Start services and socket
 
 
 Fixing 'device XXXX is missing in devicedb':
