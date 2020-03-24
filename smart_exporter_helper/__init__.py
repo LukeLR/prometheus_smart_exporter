@@ -72,6 +72,21 @@ def read_drive_info(device, additional_smartctl_args):
         ["smartctl", "-iAH"] + additional_smartctl_args + [device], stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
 
+    try:
+        data.check_returncode()
+    except subprocess.CalledProcessError as exc:
+        # Ignore smartctl return code 32 (smartctl bit 5: marginal atttribute above threshold in the past)
+        if data.returncode is 32:
+            pass
+        else:
+            logger.error(
+                "failed to read SMART data for %s (%s)",
+                device,
+                exc,
+            )
+            return {
+                "error": 1,
+            }
 
     info, smart_data = data.stdout.decode().split("START OF READ SMART DATA", 1)
 
