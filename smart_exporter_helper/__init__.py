@@ -66,22 +66,14 @@ ATTR_LINE = re.compile(
 )
 
 
-def read_drive_info(device, additional_smartctl_args):
-    try:
-        data = subprocess.check_output(
-            ["smartctl", "-iA"] + additional_smartctl_args + [device],
-        ).decode()
-    except subprocess.CalledProcessError as exc:
-        logger.error(
-            "failed to read SMART data for %s (%s)",
-            device,
-            exc,
-        )
-        return {
-            "error": 1,
-        }
 
-    info, smart_data = data.split("START OF READ SMART DATA", 1)
+def read_drive_info(device, additional_smartctl_args):
+    data = subprocess.run(
+        ["smartctl", "-iAH"] + additional_smartctl_args + [device], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+    )
+
+
+    info, smart_data = data.stdout.decode().split("START OF READ SMART DATA", 1)
 
     serial_no = SERIAL_NUMBER.search(info)
 
