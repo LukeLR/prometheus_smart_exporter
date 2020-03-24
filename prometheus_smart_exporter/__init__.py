@@ -127,6 +127,11 @@ class SMARTCollector(object):
             labels=["drive"],
         )
 
+        disk_health_metrics = GaugeMetricFamily(
+            "smart_disk_health",
+            "flag indicating that a disk is unhealthy",
+            labels=["drive"]
+        )
         attr_metrics = {}
 
         def get_attr_metric(device, id_, name):
@@ -166,12 +171,24 @@ class SMARTCollector(object):
                 )
                 continue
 
+
             has_warnings = False
 
             error_metrics.add_metric(
                 [drive],
                 0.
             )
+
+            if devinfo["diskhealth"]:
+                disk_health_metrics.add_metric(
+                    [drive],
+                    1.
+                )
+            else:
+                disk_health_metrics.add_metric(
+                    [drive],
+                    0.
+                )
 
             device = devinfo["model"]
             family = devinfo["family"]
@@ -246,6 +263,7 @@ class SMARTCollector(object):
             global_error_metric,
             error_metrics,
             warning_metrics,
+            disk_health_metrics,
         ] + list(attr_metrics.values())
 
 
