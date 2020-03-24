@@ -65,6 +65,10 @@ ATTR_LINE = re.compile(
     re.MULTILINE | re.VERBOSE
 )
 
+SMART_HEALTH = re.compile(
+    r"(^SMART overall-health self-assessment test result:\s*(\S.*)$)|(^SMART Health Status:\s*(\S.*)$)",
+    re.MULTILINE,
+)
 
 
 def read_drive_info(device, additional_smartctl_args):
@@ -104,6 +108,13 @@ def read_drive_info(device, additional_smartctl_args):
     else:
         model = model.group(1)
 
+    disk_health = SMART_HEALTH.search(smart_data)
+
+    if (str(disk_health.group(2)) == "PASSED") or (str(disk_health.group(2)) == "OK"):
+        disk_health = 0
+    else:
+        disk_health = 1
+
     attrs = []
 
     for attr in ATTR_LINE.finditer(smart_data):
@@ -126,6 +137,7 @@ def read_drive_info(device, additional_smartctl_args):
         "family": family,
         "attrs": attrs,
         "error": 0,
+        "diskhealth": disk_health
     }
 
 
