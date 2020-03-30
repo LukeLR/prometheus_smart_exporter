@@ -48,6 +48,17 @@ The helper is less than 300 lines of nearly dependency-free (the exception are t
 Installation
 ============
 
+Requirements
+
+- pkg-config
+- systemd-devel
+
+Debian/Ubuntu
+
+``sudo apt install pkg-config libsystemd-dev``
+
+Installation
+
 .. code-block:: sh
 
    git clone https://github.com/RaptahJezus/prometheus_smart_exporter.git
