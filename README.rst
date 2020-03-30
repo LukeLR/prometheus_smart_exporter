@@ -61,7 +61,7 @@ Debian/Ubuntu
 
 ``adduser prometheus --shell=/bin/false --no-create-home``
 
-Installation
+**Install**
 
 .. code-block:: sh
 
