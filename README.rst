@@ -48,7 +48,7 @@ The helper is less than 300 lines of nearly dependency-free (the exception are t
 Installation
 ============
 
-Requirements
+**Requirements**
 
 - pkg-config
 - systemd-devel
@@ -56,6 +56,10 @@ Requirements
 Debian/Ubuntu
 
 ``sudo apt install pkg-config libsystemd-dev``
+
+**Create user to run prometheus_smart_exporter**
+
+``adduser prometheus --shell=/bin/false --no-create-home``
 
 Installation
 
