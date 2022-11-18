@@ -151,17 +151,18 @@ def iter_drives():
                     yield basename, blockdev.parts[-1]
 
 
-def handle_client(sock, additional_smartctl_args):
+def handle_client(sock, additional_smartctl_args, ignoredisks):
     try:
         # we never want to read
         sock.shutdown(socket.SHUT_RD)
 
         drives = []
         for port, device in iter_drives():
-            info = read_drive_info("/dev/"+device,
-                    additional_smartctl_args)
-            info["drive"] = device
-            drives.append(info)
+            if device not in ignoredisks:
+                info = read_drive_info("/dev/"+device,
+                        additional_smartctl_args)
+                info["drive"] = device
+                drives.append(info)
 
         data = repr(drives).encode("utf-8")
         header = Header.pack(1, len(data))
@@ -205,6 +206,12 @@ def main():
         dest="verbosity",
         action="count",
         default=0,
+    )
+
+    parser.add_argument(
+        "--ignore",
+        help="Patterns used to exclude drives from smartctl scans",
+        default='',
     )
 
     args = parser.parse_args()
@@ -274,6 +281,8 @@ def main():
 
         try:
             with contextlib.closing(client_sock):
-                handle_client(client_sock, args.smartctl_arg)
+                print("test)")
+                handle_client(client_sock, args.smartctl_arg, args.ignore)
+                
         except Exception as exc:
             logger.exception("while handling client")
