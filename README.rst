@@ -79,7 +79,10 @@ This will do the following
 * Start services and socket
 
 Load smartdb.json
+
 ```sudo curl -o /etc/prometheus_smart_exporter/devices.json https://raw.githubusercontent.com/thomas-krenn/check_smart_attributes/master/check_smartdb.json```
+
+
 
 Fixing 'device XXXX is missing in devicedb':
 
@@ -188,8 +191,8 @@ The helper is configured using command line arguments only.
      --timeout TIMEOUT     Time in seconds to wait between connections. Defaults
                            to infinity.
      --ignore IGNORE       Ignore drives matching pattern, ex ``--ignore "sda,sdb"
-                           will skip running ``smartctl`` commands on /dev/sda and /dev/sdb
-                           useful for devices where smartctl is not upported 
+                           will skip running smartctl commands on /dev/sda and /dev/sdb
+                           useful for devices/disks where smartctl is not upported 
                            (e.g. Odroid on a microSD card)
      -v
 
