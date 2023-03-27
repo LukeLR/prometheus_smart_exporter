@@ -7,6 +7,7 @@ all:
 install:
 	install -m 644 $(systemd_units) /etc/systemd/system/
 	install -m 755 -d /etc/prometheus_smart_exporter/
+	install -m 755 prometheus_smart_exporter/data/devices.json /etc/prometheus_smart_exporter/
 	install -m 755 prometheus_smart_exporter/data/attrmap.json /etc/prometheus_smart_exporter/
 
 	systemctl daemon-reload

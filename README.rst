@@ -78,10 +78,6 @@ This will do the following
 * Enable services and socket
 * Start services and socket
 
-Load smartdb.json
-
-```sudo curl -o /etc/prometheus_smart_exporter/devices.json https://raw.githubusercontent.com/thomas-krenn/check_smart_attributes/master/check_smartdb.json```
-
 
 
 Fixing 'device XXXX is missing in devicedb':
