@@ -250,6 +250,15 @@ The HTTP exporter is configured using the aforementioned JSON files and command 
   path to the UNIX socket where the helper listens
 
 
+Grafana
+=======
+
+An example grafana dashboard is provided as `grafana-example-dashboard.json`_. It looks somewhat like thos:
+
+.. image:: grafana-example-dashboard.png
+
+
 .. _check_smart_attributes: https://github.com/thomas-krenn/check_smart_attributes
 .. _check_smartdb.json: https://raw.githubusercontent.com/thomas-krenn/check_smart_attributes/master/check_smartdb.json
 .. _git repository: https://github.com/cloudandheat/prometheus_smart_exporter
+.. _a link: grafana-example-dashboard.json
